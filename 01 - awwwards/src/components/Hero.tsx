@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
-import { TiLocationArrow } from "react-icons/ti";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useEffect, useRef, useState } from "react";
+import { TiLocationArrow } from "react-icons/ti";
 
 import Button from "./Button";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const [curIdx, setCurIdx] = useState(1);
@@ -13,16 +16,21 @@ const Hero = () => {
 
   const totalVideos = 4;
   const nextVideoRef = useRef<HTMLVideoElement>(null);
-  const upcomingVideoIdx = (curIdx % totalVideos) + 1;
 
   const handleMiniVideoClick = () => {
     setHasClicked(true);
-    setCurIdx(upcomingVideoIdx);
+    setCurIdx((prevIdx) => (prevIdx % totalVideos) + 1);
   };
 
   const handleVideoLoad = () => {
     setLoadedVideos((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    if (loadedVideos === totalVideos - 1) {
+      setIsLoading(false);
+    }
+  }, [loadedVideos]);
 
   useGSAP(
     () => {
@@ -52,10 +60,38 @@ const Hero = () => {
     { dependencies: [curIdx], revertOnUpdate: true }
   );
 
+  useGSAP(() => {
+    gsap.set("#video-frame", {
+      clipPath: "polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)",
+      borderRadius: "0 0 40% 10%",
+    });
+
+    gsap.from("#video-frame", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      borderRadius: "0 0 0 0",
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: "#video-frame",
+        start: "center center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+  });
+
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {isLoading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+          </div>
+        </div>
+      )}
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
@@ -68,7 +104,7 @@ const Hero = () => {
             >
               <video
                 ref={nextVideoRef}
-                src={getVideoSrc(upcomingVideoIdx)}
+                src={getVideoSrc((curIdx % totalVideos) + 1)}
                 loop
                 muted
                 id="current-video"
@@ -84,6 +120,7 @@ const Hero = () => {
             muted
             id="next-video"
             className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
+            onLoadedData={handleVideoLoad}
           />
 
           <video
@@ -92,6 +129,7 @@ const Hero = () => {
             loop
             muted
             className="absolute left-0 top-0 size-full object-cover object-center"
+            onLoadedData={handleVideoLoad}
           />
         </div>
 
