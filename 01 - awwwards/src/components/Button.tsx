@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 interface ButtonProps {
   id: string;
   title: string;
-  leftIcon: ReactNode;
+  leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   containerClass: string;
 }
