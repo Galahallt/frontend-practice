@@ -1,12 +1,12 @@
 import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { useWindowScroll } from "react-use";
-import Button from "./Button";
+import Button from "../components/Button";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
 
-const Navbar = () => {
+const Navbar: FC = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);

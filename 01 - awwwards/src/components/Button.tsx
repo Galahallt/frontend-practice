@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
 interface ButtonProps {
   id: string;
@@ -8,13 +8,13 @@ interface ButtonProps {
   containerClass: string;
 }
 
-const Button = ({
+const Button: FC<ButtonProps> = ({
   id,
   title,
   leftIcon,
   rightIcon,
   containerClass,
-}: ButtonProps) => {
+}) => {
   return (
     <button
       id={id}

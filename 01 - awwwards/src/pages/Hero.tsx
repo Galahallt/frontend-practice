@@ -1,14 +1,14 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 
-import Button from "./Button";
+import { Button } from "../components";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
+const Hero: FC = () => {
   const [curIdx, setCurIdx] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

@@ -1,12 +1,12 @@
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface AnimatedTitleProps {
   title: string;
   containerClass: string;
 }
 
-const AnimatedTitle = ({ title, containerClass }: AnimatedTitleProps) => {
+const AnimatedTitle: FC<AnimatedTitleProps> = ({ title, containerClass }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
