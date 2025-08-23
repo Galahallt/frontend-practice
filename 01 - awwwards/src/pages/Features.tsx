@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+
 import { BentoCard, BentoTilt } from "../components";
 
 const Features: FC = () => {

@@ -2,6 +2,7 @@ import gsap from "gsap";
 import { FC, useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { useWindowScroll } from "react-use";
+
 import Button from "../components/Button";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
