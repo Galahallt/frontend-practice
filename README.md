@@ -1,5 +1,13 @@
 # Web App Development Practice
 
+Skills Developed:
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,tailwind" />
+  </a>
+</p>
+
+
 This repository contains my personal training to further develop my expertise in web application development.
 
 
